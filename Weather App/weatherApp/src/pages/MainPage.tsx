@@ -1,10 +1,17 @@
 import Panel from '../components/Panel';
 import { useState } from 'react';
 import axios from 'axios';
+import Display from '../components/Display';
 
+
+//WE PUT THIS IN TYPE FOLDER LATER
 type weather={
     city:string,
-    temp:number
+    latitude:number,
+    longitude:number,
+    elevation:number,
+    timezone:string,
+    country:string
 }
 
 
@@ -15,15 +22,17 @@ function MainPage() {
     const [data,setData]=useState<weather|null>(null)
     
 
-    const callApi= async()=>{
-        const api:string="  "
+    const geolocApi= async(city)=>{
+        const api:string=`${city} ` //api to return geolocation - coordinates of city &more
 
         const response= await axios.get(api)
         // .then((response)=>{
         //     console.log(response.data)})
         // .catch((err)=>{console.log(err)})
+        
         if(!response.data)
             {
+                
                 setData(response.data)
             }
     }
@@ -31,7 +40,7 @@ function MainPage() {
     const handleSearch=(value:string)=>{
         setCity(value)
         console.log(city)
-        callApi()
+        geolocApi(value)
     }
 
 
@@ -40,6 +49,8 @@ function MainPage() {
     <div>
       <h1>Welcome to the Weather App</h1>
       <Panel onSearch={handleSearch}/>
+
+       {data && <Display data={data}/>}
     </div>
   );
 }
