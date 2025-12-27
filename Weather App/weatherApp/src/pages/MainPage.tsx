@@ -5,7 +5,7 @@ import Display from '../components/Display';
 
 
 //WE PUT THIS IN TYPE FOLDER LATER
-type weather={
+type geoloc={
     city:string,
     latitude:number,
     longitude:number,
@@ -19,7 +19,7 @@ type weather={
 function MainPage() {
 
     const [city,setCity]=useState<string>("")
-    const [data,setData]=useState<weather|null>(null)
+    const [data,setData]=useState<geoloc|null>(null)
     
 
     const geolocApi= async(city)=>{
