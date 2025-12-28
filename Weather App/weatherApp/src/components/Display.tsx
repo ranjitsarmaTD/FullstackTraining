@@ -28,7 +28,9 @@ function Display({ data }: DisplayProps) {
             </div>
             <div className="display-content">
                 {activeTab==="hourly" ? (
-                    <div className="content-hourly"></div>
+                    <div className="content-hourly">
+                        
+                    </div>
                 )
                 :(
                     <div className="content-daily"></div>

@@ -1,5 +1,5 @@
 import Panel from '../components/Panel';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Display from '../components/Display';
 
@@ -42,6 +42,19 @@ function MainPage() {
         console.log(city)
         geolocApi(value)
     }
+
+    //extracting the lat n long frm data 
+    const lat= data?.latitude
+    const long= data?.longitude
+
+    useEffect(()=>{
+        if(lat&&long){
+            //call weather api using lat long from data
+        }
+        else{
+          console.log("Coordinates have not been received properly")
+        }
+    },[lat,long])
 
 
 
