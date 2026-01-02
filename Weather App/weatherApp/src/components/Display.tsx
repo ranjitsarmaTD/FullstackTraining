@@ -4,7 +4,7 @@ import HourlyDisplay from "./HourlyDisplay";
 import DailyDisplay from "./DailyDisplay";  
 
 type DisplayProps={
-    data:{
+    weatherData:{
         current: {
                     time: Date;
                     temperature_2m: number;
@@ -25,25 +25,61 @@ type DisplayProps={
                 temperature_2m_max: number[]|Float32Array|null;
                 temperature_2m_min: number[]|Float32Array|null;
                 precipitation_probability_max: number[]|Float32Array|null;
-                    };
+              };
     }
+
+
+    locData:{
+        name:string,
+        latitude:number,
+        longitude:number,
+        elevation:number,
+        timezone:string,
+        country:string
+  }
 }
+
+
+//type for currentweather data
+type currentWeatherUI={
+  temperature: number
+  weatherCode: number
+  humidity: number
+  windSpeed: number
+  minTemp: number
+  maxTemp: number
+  sunrise: string
+  sunset: string
+}
+
+
 //conditional tabing -- done
 //component or conditional content render ---done
 //decide whether to show current weather as complete different component or part of display component--decided
 //dividing the data obtained and send as props to respective components--
 
 
-function Display({ data }: DisplayProps) {
+function Display({ weatherData, locData }: DisplayProps) {
 
     const [activeTab,setActiveTab]=useState<"hourly" | "daily">("hourly")
+
+    const currentWeather:currentWeatherUI={
+        temperature: weatherData.current.temperature_2m,
+        weatherCode: weatherData.current.weather_code,
+        humidity: weatherData.current.relative_humidity_2m,
+        windSpeed: weatherData.current.wind_speed_10m,
+        minTemp: weatherData.daily?.temperature_2m_min?.[0] ?? 0,
+        maxTemp: weatherData.daily?.temperature_2m_max?.[0] ?? 0,
+        sunrise: weatherData.daily.sunrise[0].toISOString(),
+        sunset: weatherData.daily.sunset[0].toISOString()
+    }   
 
 
     return (
         <div>
             <h2>Data retrieve</h2>
 
-            <div className="current-content">{data && <CurrentDisplay />}</div>
+            <div className="current-content">{weatherData&& locData && <CurrentDisplay currentWeather={currentWeather}  />}</div>
 
             <div className="display-tabs">
                 <button onClick={()=>setActiveTab("hourly")}>Hourly</button>

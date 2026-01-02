@@ -6,39 +6,42 @@ import { fetchWeatherData} from '../API/weatherforecast';
 
 
 //WE PUT THIS IN TYPE FOLDER LATER
-type geoloc={
-  results:{
+type geoLocType={
+  
     name:string,
     latitude:number,
     longitude:number,
     elevation:number,
     timezone:string,
     country:string
-}}
+}
+type geoloc={
+  results:geoLocType[]
+}
 
 // we later convert this to a proper type file and interface
 type WeatherDataType = {
-  current: {
-    time: Date;
-    temperature_2m: number;
-    relative_humidity_2m: number;
-    wind_speed_10m: number;
-    weather_code: number;
-  };
-  hourly: {
-    time: Date[];
-    temperature_2m: number[]|Float32Array|null;
-    temperature_80m: number[]|Float32Array|null;
-    precipitation_probability: number[]|Float32Array|null;
-  };
-  daily: {
-    time: Date[];
-    sunrise: Date[];
-    sunset: Date[];
-    temperature_2m_max: number[]|Float32Array|null;
-    temperature_2m_min: number[]|Float32Array|null;
-    precipitation_probability_max: number[]|Float32Array|null;
-  };
+ current: {
+      time: string
+      temperature_2m: number
+      relative_humidity_2m: number
+      wind_speed_10m: number
+      weather_code: number
+    }
+    hourly: {
+      time: string[]
+      temperature_2m: number[] | Float32Array | null
+      temperature_80m: number[] | Float32Array | null
+      precipitation_probability: number[] | Float32Array | null
+    }
+    daily: {
+      time: string[]
+      sunrise: string[]
+      sunset: string[]
+      temperature_2m_max: number[] | Float32Array | null
+      temperature_2m_min: number[] | Float32Array | null
+      precipitation_probability_max: number[] | Float32Array | null
+    }
 };
   
 
@@ -47,12 +50,12 @@ type WeatherDataType = {
 function MainPage() {
 
     const [city,setCity]=useState<string>("")
-    const [data,setData]=useState<geoloc|null>(null)
+    const [data,setData]=useState<geoLocType|null>(null)
     const [weatherData,setWeatherData]=useState<WeatherDataType|null>(null)
     
 
     const geolocApi= async(city:string)=>{
-      console.log("In geoloc API with city:",city)
+      console.log("Main Page :In geoloc API with city:",city)
         const api:string=`https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=10&language=en&format=json ` //api to return geolocation - coordinates of city &more
 
         const response= await axios.get<geoloc>(api)
@@ -62,7 +65,7 @@ function MainPage() {
         
         
         if(response.data)
-            {   console.log("Geolocation data received:",response.data)
+            {   console.log("Main Page: Geolocation data received:",response.data.results)
                 setData(response.data.results[0]) //setting the first result from array of results
             }
           else{
@@ -77,7 +80,7 @@ function MainPage() {
     }
 
     //extracting the lat n long frm data 
-    console.log("Geolocation data in MainPage:",data?.name) 
+    // console.log("Geolocation data in MainPage:",data?.results.name) 
     const lat= data?.latitude
     const long= data?.longitude
     console.log("Latitude:",lat,"Longitude:",long)
@@ -103,7 +106,7 @@ function MainPage() {
       <h1>Welcome to the Weather App</h1>
       <Panel onSearch={handleSearch}/>
 
-       {weatherData && <Display data={weatherData}/>}
+       {weatherData && data && <Display weatherData={weatherData} locData={data}/>}
     </div>
   );
 }

@@ -18,7 +18,7 @@ const Panel = ({onSearch}:PanelProps) => {
     
     
     const handleClick=()=>{
-        console.log("Searching for city:",city);
+        console.log("Panel Pg: Searching for city:",city);
         onSearch(city ||"")//prop function. Callback to parent page.
         
     }
