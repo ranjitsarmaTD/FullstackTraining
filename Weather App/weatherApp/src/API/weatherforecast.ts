@@ -11,6 +11,8 @@ const fetchWeatherData = async (lat: number, long: number) => {
 	hourly: ["temperature_2m", "temperature_80m", "precipitation_probability"],
 	current: ["relative_humidity_2m", "wind_speed_10m", "weather_code", "temperature_2m"],
 	timezone: "auto",
+	forecast_hours: 24,
+	past_hours: 12,
     };
 	const url = "https://api.open-meteo.com/v1/forecast";
 

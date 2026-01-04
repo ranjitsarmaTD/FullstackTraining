@@ -15,7 +15,7 @@ type DisplayProps={
         hourly: {
                     time: Date[];
                     temperature_2m: number[]|Float32Array|null;
-                    temperature_80m: number[]|Float32Array|null;
+                    // temperature_80m: number[]|Float32Array|null;
                     precipitation_probability: number[]|Float32Array|null;
         };
         daily: {
@@ -42,6 +42,8 @@ type DisplayProps={
 
 //type for currentweather data
 type currentWeatherUI={
+  city:string,
+  country:string,
   temperature: number
   weatherCode: number
   humidity: number
@@ -51,6 +53,15 @@ type currentWeatherUI={
   sunrise: string
   sunset: string
 }
+
+
+// type hourlyDataUI={
+//     time: Date[];
+//     temperature_2m: number[]|Float32Array|null;
+//     temperature_80m: number[]|Float32Array|null;
+//     precipitation_probability: number[]|Float32Array|null;
+// }
+
 
 
 //conditional tabing -- done
@@ -64,6 +75,8 @@ function Display({ weatherData, locData }: DisplayProps) {
     const [activeTab,setActiveTab]=useState<"hourly" | "daily">("hourly")
 
     const currentWeather:currentWeatherUI={
+        city: locData.name,
+        country: locData.country,
         temperature: weatherData.current.temperature_2m,
         weatherCode: weatherData.current.weather_code,
         humidity: weatherData.current.relative_humidity_2m,
@@ -72,14 +85,21 @@ function Display({ weatherData, locData }: DisplayProps) {
         maxTemp: weatherData.daily?.temperature_2m_max?.[0] ?? 0,
         sunrise: weatherData.daily.sunrise[0].toISOString(),
         sunset: weatherData.daily.sunset[0].toISOString()
-    }   
+    }
+
+    const hourlyData:DisplayProps["weatherData"]["hourly"]={
+        time: weatherData.hourly.time,
+        temperature_2m: weatherData.hourly.temperature_2m,
+        // temperature_80m: weatherData.hourly.temperature_80m,
+        precipitation_probability: weatherData.hourly.precipitation_probability
+    }
 
 
     return (
         <div>
             <h2>Data retrieve</h2>
 
-            <div className="current-content">{weatherData&& locData && <CurrentDisplay currentWeather={currentWeather}  />}</div>
+            <div className="current-display">{weatherData&& locData && <CurrentDisplay currentWeather={currentWeather}  />}</div>
 
             <div className="display-tabs">
                 <button onClick={()=>setActiveTab("hourly")}>Hourly</button>
@@ -89,7 +109,7 @@ function Display({ weatherData, locData }: DisplayProps) {
             <div className="display-content">
                 {activeTab==="hourly" ? (
                     <div className="content-hourly">
-                        <HourlyDisplay />
+                        <HourlyDisplay hourlyData={hourlyData} />
                     </div>
                 )
                 :(

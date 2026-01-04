@@ -21,27 +21,27 @@ type geoloc={
 
 // we later convert this to a proper type file and interface
 type WeatherDataType = {
- current: {
-      time: string
-      temperature_2m: number
-      relative_humidity_2m: number
-      wind_speed_10m: number
-      weather_code: number
-    }
-    hourly: {
-      time: string[]
-      temperature_2m: number[] | Float32Array | null
-      temperature_80m: number[] | Float32Array | null
-      precipitation_probability: number[] | Float32Array | null
-    }
-    daily: {
-      time: string[]
-      sunrise: string[]
-      sunset: string[]
-      temperature_2m_max: number[] | Float32Array | null
-      temperature_2m_min: number[] | Float32Array | null
-      precipitation_probability_max: number[] | Float32Array | null
-    }
+  current: {
+    time: Date;
+    temperature_2m: number;
+    relative_humidity_2m: number;
+    wind_speed_10m: number;
+    weather_code: number;
+  };
+  hourly: {
+    time: Date[];
+    temperature_2m: number[]|Float32Array|null;
+    temperature_80m: number[]|Float32Array|null;
+    precipitation_probability: number[]|Float32Array|null;
+  };
+  daily: {
+    time: Date[];
+    sunrise: Date[];
+    sunset: Date[];
+    temperature_2m_max: number[]|Float32Array|null;
+    temperature_2m_min: number[]|Float32Array|null;
+    precipitation_probability_max: number[]|Float32Array|null;
+  };
 };
   
 
@@ -106,7 +106,7 @@ function MainPage() {
       <h1>Welcome to the Weather App</h1>
       <Panel onSearch={handleSearch}/>
 
-       {weatherData && data && <Display weatherData={weatherData} locData={data}/>}
+       {weatherData && data&& <Display weatherData={weatherData} locData={data}/>}
     </div>
   );
 }
