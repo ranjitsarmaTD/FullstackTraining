@@ -1,4 +1,5 @@
 import { useState } from "react";
+import  "../CSS/mainpage.css";
 
 
 // type weatherApi={
@@ -26,14 +27,24 @@ const Panel = ({onSearch}:PanelProps) => {
 
 
 
-    return <div>
+    return <div className="display-panel">
         <label> Enter your City name:</label>
-        <input type="text" 
+        <input style={{width:'30%',  
+                       borderRadius:'5px',
+                       padding:'5px',
+                       border:'1px solid #ff6f00ff',
+                       boxShadow:'0px 0px 10px orange',
+                       textAlign:'center',
+                       minWidth:'20%'
+                        
+            
+                        
+        }} type="text" 
             placeholder="Eg: Guwahati" 
             value={city}
             onChange={(e)=>{setCity(e.target.value)}} />
 
-        <button onClick={handleClick}>Search</button>
+        <button className="search-button" onClick={handleClick}>Search</button>
         
 
 

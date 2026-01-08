@@ -1,7 +1,7 @@
 
 import MetricCard from "../component_utils/MetricCard";
 import { useState } from "react";
-
+import "../CSS/mainpage.css";
 
 
 type currentWeatherUI={
@@ -53,7 +53,13 @@ const CurrentDisplay = ({ currentWeather }: CurrentDisplayProps) => {
 
     return (
         <div className="current-display-box">
-            <div className="temp-unit-toggle">
+            <div className="temp-unit-toggle" style={{display:'flex',
+                                                      flexDirection:'row',
+                                                      alignItems:'center',
+                                                      justifyContent:'center',
+                                                      gap:'30px',
+                                                      width:'100%',
+                        }}>
                 
                 <h2>{unit === "celsius" ? 
                     currentWeather.temperature.toFixed(1)+" °C" 

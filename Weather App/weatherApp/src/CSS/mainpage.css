@@ -2,18 +2,87 @@ header{
   
   top: 0;
   z-index: 1000;
+  
+  display: flex;
+  text-align: center;
+  justify-content: center;
   width: 100%;
-  border: 5px solid rgba(0, 0, 0, 0.97);
-  background: rgba(30, 19, 255, 0.95);
-  backdrop-filter: blur(4px); /* optional */
+  
+  box-shadow: 0px 0px 30px #a5f9f1 inset;
+  background: #defcf9;
+  
+  backdrop-filter: blur(4px); 
+}
+
+header h1{
+  margin: 0.5em;
+  font-size: clamp(1.5rem, 5vw, 3rem);
+  color: #4b0082;
+  text-shadow: 0px 0px 10px #8a2be2;
 }
 
 .mainpage-container {
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* align-items: center; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   /* justify-content: center; */
   min-height: 100vh;
   width: 100%;
   margin: 0;
+}
+
+.display-panel {
+  margin: 2em;
+  padding: 2em;
+  box-shadow: 0 4px 30px rgba(142, 38, 240, 0.684);
+  border-radius: 12px;
+  background: #c3bef0;
+  backdrop-filter: blur(10px);
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap:15px;
+
+  min-width: 30%;
+  width: 60vw;
+}
+
+.display-panel label {
+  font-size: clamp(0.5rem, 1.8vw, 3rem);
+  margin-bottom: 0.5em;
+  color: #330066;
+  text-shadow: 0px 0px 5px #a020f0;
+
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  font-style: italic;
+}
+
+.search-button {
+  border-radius: 8px;
+  border: none;
+  padding: 5px 5px;
+  font-size: 1.1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #e9e7c0;
+  cursor: pointer;
+  transition: background-color 0.25s;
+}
+.search-button:hover{
+    background-color: #f3e936;
+}
+
+
+.display-data{
+    border:1px solid black;
+    width: 100%;
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+}
+.current-display-box{
+    border: 1px solid black;
+    width: 50%;
+    
 }

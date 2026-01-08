@@ -133,9 +133,13 @@ function MainPage() {
   return (
     <div className="mainpage-container">
       <Header/>
+
       <Panel onSearch={handleSearch} />
+      
       {error && <p style={{ color: "red" }}>{error}</p>}
+      
       {loading && <p>Loading weather...</p>}
+      
       {weatherData && data && (
         <Display weatherData={weatherData} locData={data} />
       )}
