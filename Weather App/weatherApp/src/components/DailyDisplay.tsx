@@ -18,7 +18,9 @@ const DailyDisplay = ({ dailyData }: dailyDataProps) => {
 
 
     return (
-        <div> {dailyData && dailyData.time.map((time,index)=>(
+        <div className="content-daily-component"> 
+            <h2>For the next few days...</h2>
+            {dailyData && dailyData.time.map((time,index)=>(
             <DailyCard
               key={index}
               time={time}  

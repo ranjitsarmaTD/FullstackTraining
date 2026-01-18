@@ -53,18 +53,20 @@ const CurrentDisplay = ({ currentWeather }: CurrentDisplayProps) => {
 
     return (
         <div className="current-display-box">
-            <div className="temp-unit-toggle" style={{display:'flex',
-                                                      flexDirection:'row',
+            <div className="temp-unit-toggle" style={{display:'grid',
+                                                      gridTemplateColumns:'1fr auto 1fr',
                                                       alignItems:'center',
-                                                      justifyContent:'center',
-                                                      gap:'30px',
-                                                      width:'100%',
-                        }}>
+                                                      width:'100%'
+                                                     }}>
                 
-                <h2>{unit === "celsius" ? 
+                <h2 style={{gridColumn:'2',justifySelf:'center',fontSize:'3em'}}>{unit === "celsius" ? 
                     currentWeather.temperature.toFixed(1)+" °C" 
                     : convertToFahrenheit(currentWeather.temperature).toFixed(1) + " °F"}</h2>
-                <button onClick={()=>setUnit(unit==='celsius'?'fahrenheit':'celsius')}>T</button>
+
+
+                <button style={{gridColumn:'3',justifySelf:'center', borderRadius:'8px',backgroundColor:'#497ef0b5'}}  onClick={()=>setUnit(unit==='celsius'?'fahrenheit':'celsius')}>°C / °F</button>
+
+
             </div>
             <h2>{currentWeather.city}, {currentWeather.country}</h2>
             <h2>Min: {unit === "celsius" ? 

@@ -105,6 +105,7 @@ function MainPage() {
   useEffect(() => {
     if (!lat || !long) {
       console.log("Coordinates have not been received properly");
+      return;
     }
 
     const callFetchWeatherData = async () => {

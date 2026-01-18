@@ -7,7 +7,7 @@ type MetricCardProps = {
 
 
 const MetricCard = ({label,value,unit}:MetricCardProps) => { {
-  return <div className="weather-metric-card">
+  return <div className={`weather-metric-card--${label}`}>
     <p className="weather-card__label">{label}</p>
     <p className="weather-card__value">
         {value}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+// import { useState } from "react";
 import CurrentDisplay from "./CurrentDisplay";
 import HourlyDisplay from "./HourlyDisplay";
 import DailyDisplay from "./DailyDisplay";  
@@ -81,7 +81,7 @@ type currentWeatherUI={
 
 function Display({ weatherData, locData }: DisplayProps) {
 
-    const [activeTab,setActiveTab]=useState<"hourly" | "daily">("hourly")
+    // const [activeTab,setActiveTab]=useState<"hourly" | "daily">("hourly")
 
     const currentWeather:currentWeatherUI={
         city: locData.name,
@@ -118,7 +118,9 @@ function Display({ weatherData, locData }: DisplayProps) {
 
             {weatherData&& locData && <CurrentDisplay currentWeather={currentWeather}  />}
 
-            <div className="display-tabs">
+            {/* tab format */}
+
+            {/* <div className="display-tabs">
                 <button onClick={()=>setActiveTab("hourly")}>Hourly</button>
                 <button onClick={()=>setActiveTab("daily")}>Daily</button>
 
@@ -135,6 +137,23 @@ function Display({ weatherData, locData }: DisplayProps) {
                     </div>
                 )
                 }
+            </div> */}
+
+
+
+
+            <div className="display-content">
+                
+                    <div className="content-hourly" >
+                        <HourlyDisplay hourlyData={hourlyData} />
+                    </div>
+                
+
+                    <div className="content-daily">
+                        <DailyDisplay dailyData={dailyData} />
+                    </div>
+                
+
             </div>
         </div>
     )

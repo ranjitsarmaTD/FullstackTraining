@@ -10,9 +10,12 @@ type HourlyDisplayProps = {
 
 const HourlyDisplay = ({ hourlyData }: HourlyDisplayProps) => {
     console.log("HourlyDisplay: received hourlyData:",hourlyData);
+
+
   
     return (
-    <div>
+    <div className="content-hourly-component">
+      <h2>Next few hours looks like</h2>
       {hourlyData.time.slice(0, 12).map((time, index) => (
         <HourlyCard
           key={index}

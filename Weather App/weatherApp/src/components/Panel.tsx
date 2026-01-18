@@ -31,12 +31,15 @@ const Panel = ({onSearch}:PanelProps) => {
         <label> Enter your City name:</label>
         <input style={{width:'30%',  
                        borderRadius:'5px',
-                       padding:'5px',
-                       border:'1px solid #ff6f00ff',
-                       boxShadow:'0px 0px 10px orange',
+                       fontSize:'1.5em',
+                       fontFamily:'times-new-roman',
+                       padding:'10px',
+                       border:'2px solid #00aeff8c',
+                    //    boxShadow:'0px 0px 10px orange',
                        textAlign:'center',
-                       minWidth:'20%'
-                        
+                       minWidth:'20%',
+                       transition:'box-shadow 0.4s ease'
+                
             
                         
         }} type="text" 
