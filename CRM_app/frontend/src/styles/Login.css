@@ -1,0 +1,101 @@
+.auth-page{
+    width: 100%;
+    height: 100%;
+
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.sign-up-in{
+    border:1px solid black;
+
+
+    width:30%;
+    aspect-ratio: 1/1;
+
+    display: flex;
+    flex-direction: column;
+    
+   
+
+    
+}
+
+.sign-tabs{
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+    
+    
+}
+
+.sign-box{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.role-selection{
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.role-selection select{
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 4px 8px;
+    width: 100%;
+    max-width: 300px;
+    min-width: 100px
+}
+
+
+
+
+
+.sign-in-form, .sign-up-form{
+    display: grid;
+    grid-template-columns: 120px 2fr;
+
+    /* justify-content: center; */
+    height: 100%;
+}
+
+.sign-in-form h2, .sign-up-form h2{
+    grid-column:1/-1;
+    text-align:center;
+}
+
+.sign-in-form button, .sign-up-form button{
+  grid-column: 1 / -1; 
+  justify-self: center;
+  padding: 8px 24px;
+}
+
+.sign-in-form label, .sign-up-form label{
+    align-self: center;
+    justify-self: center;
+    /* padding-right: 8px; */
+}
+
+.sign-in-form input, .sign-up-form input{
+    width: 70%;
+    height:40px;
+    padding: 4px 8px;
+    justify-self: center;
+    align-self: center;
+}
+
+.sign-in-form button, .sign-up-form button{
+    padding: 0.6em 1.2em;
+    cursor: pointer;
+    height:2rem;
+    text-align: center;
+
+    border-radius: 8px;;
+}
