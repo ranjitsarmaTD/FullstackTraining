@@ -1,0 +1,11 @@
+.MuiDrawer-paper{
+    width: 650px;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+}
+
+.form-title{
+    font-size: 2rem;
+    color: var(--secondary-text);
+}
