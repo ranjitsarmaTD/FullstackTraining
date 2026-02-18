@@ -1,0 +1,25 @@
+#root {
+  margin: 0;
+  padding: 0rem;
+  --primary: #1E3A8A;
+  --secondary: #6366F1;
+  --primary-text: #3c3b3b;
+  --secondary-text: rgb(175, 170, 170);
+}
+
+h1, h2, h3, p{
+  margin: 0px;
+}
+
+h1, h2, h3, h4, h5, h6{
+  font-family: "Noto Sans TC", sans-serif;
+}
+
+p{
+  font-family: "Inter", sans-serif;
+}
+
+.read-the-docs {
+  color: #888;
+}
+

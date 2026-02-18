@@ -1,0 +1,44 @@
+[
+  {
+    "id": 201,
+    "leaveType": "Casual Leave",
+    "fromDate": "2026-01-15",
+    "toDate": "2026-01-16",
+    "days": 2,
+    "reason": "Personal work",
+    "status": "Approved",
+    "appliedAt": "2026-01-10T08:30:00",
+    "approvedAt": "2026-01-11T10:00:00"
+  },
+  {
+    "id": 202,
+    "leaveType": "Sick Leave",
+    "fromDate": "2026-02-01",
+    "toDate": "2026-02-01",
+    "days": 1,
+    "reason": "Not feeling well",
+    "status": "Approved",
+    "appliedAt": "2026-01-31T19:00:00",
+    "approvedAt": "2026-02-01T09:00:00"
+  },
+  {
+    "id": 203,
+    "leaveType": "Paid Leave",
+    "fromDate": "2026-03-05",
+    "toDate": "2026-03-07",
+    "days": 3,
+    "reason": "Trip",
+    "status": "Pending",
+    "appliedAt": "2026-02-14T12:00:00"
+  },
+  {
+    "id": 204,
+    "leaveType": "Annual Leave",
+    "fromDate": "2025-12-20",
+    "toDate": "2025-12-20",
+    "days": 1,
+    "reason": "Family event",
+    "status": "Rejected",
+    "appliedAt": "2025-12-18T15:00:00"
+  }
+]

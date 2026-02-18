@@ -1,0 +1,39 @@
+[
+    { 
+        "id": 1, 
+        "name": "John", 
+        "email": "john@mail.com", 
+        "role": "HR", 
+        "status": "Active", 
+        "hiringDate": "02/05/2025" 
+    },
+    { 
+        "id": 2, 
+        "name": "Sarah", 
+        "email": "sarah@mail.com", 
+        "role": "Manager", 
+        "status": "Inactive", 
+        "hiringDate": "02/05/2025" 
+    },
+    {   "id": 3, 
+        "name": "Jane", 
+        "email": "jane@mail.com", 
+        "role": "IT", 
+        "status": "Active", 
+        "hiringDate": "02/05/2025" 
+    },
+    {   "id": 4, 
+        "name": "Drehna", 
+        "email": "drehna@mail", 
+        "role": "IT", 
+        "status": "Active", 
+        "hiringDate": "02/05/2025" 
+    },
+    {   "id": 5, 
+        "name": "Georgia", 
+        "email": "georgia@mail.com", 
+        "role": "Manager", 
+        "status": "Active", 
+        "hiringDate": "02/05/2025" 
+    }
+]
