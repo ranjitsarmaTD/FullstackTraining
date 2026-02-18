@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 16px;
+  gap: 16px;
+
+  font-size: 1.5rem;
+}
+
+/* Search spans full width */
+.searchBar {
+  width: 100%;
+  justify-items: center;
+}
+
+/* Main layout */
+.content {
+  display: flex;
+  gap: 16px;
+  height: calc(100% - 70px);
+}
+
+/* Left panel */
+.employeeList {
+  border:1px solid black;
+  width: 30%;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  overflow-y: auto;
+}
+
+/* Right panel */
+.employeeDetails {
+  width: 70%;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 16px;
+  height: fit-content;
+  padding: 20px 0px;
+}
