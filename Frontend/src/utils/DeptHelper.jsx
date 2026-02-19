@@ -16,6 +16,7 @@ export const columns = [
         selector: (row) => row.action
     }
 ]
+
 const handleDelete = async (id, navigate, onDeptDelete) => {
     const response = await axios.delete(`http://localhost:3000/api/dept/${id}`);
     // console.log(response);

@@ -7,6 +7,7 @@ import Admin_leaves from "./components/Admin/Admin-leaves"
 import EmpDashboard from "./components/Employee/EmpDashboard"
 import AddDept from "./components/Admin/AddDept"
 import EditDept from "./components/Admin/EditDept"
+import AddEmp from "./components/Admin/AddEmp"
 
 
 const App = () => {
@@ -17,6 +18,8 @@ const App = () => {
         <Route path="/login" element={<Login/>}/>
         <Route path="/admin-dashboard" element={<Admin_dashboard/>}/>
         <Route path="/admin-employees" element={<Admin_employees/>}/>
+        <Route path="/admin-employees/add" element={<AddEmp/>}/>
+        <Route path="/admin-employees/edit/:id" element={<AddEmp/>}/>
         <Route path="/admin-dept" element={<Admin_dept/>}/>
         <Route path="/admin-dept/add" element={<AddDept/>}/>
         <Route path="/dept/edit/:id" element={<EditDept/>}/>

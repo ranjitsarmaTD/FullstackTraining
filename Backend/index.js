@@ -5,6 +5,7 @@ import dotenv from 'dotenv'
 import db from "./utility/db.js";
 import authRouter from "./routes/auth.route.js";
 import deptRouter from "./routes/dept.route.js";
+import empRouter from "./routes/emp.route.js";
 
 const app = express();
 app.use(cors());
@@ -28,6 +29,7 @@ db()
 
 app.use("/api/auth", authRouter);
 app.use('/api/dept', deptRouter);
+app.use('/api/emp', empRouter);
 app.get("/", (req, res) => {
     res.send("all good");
 })
