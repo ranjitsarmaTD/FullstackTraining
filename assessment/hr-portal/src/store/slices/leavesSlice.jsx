@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { applyLeave, approveLeave, fetchBalance, fetchLeaveHistory, fetchLeaveRequests, rejectLeave } from "../thunks/leaveThunk";
-import { setLeaveRequests, setLeaveHistory } from "../../utils/localStorage";
+import { setLeaveRequests, setLeaveHistory, setLeaveBalance } from "../../utils/localStorage";
 
 const LeavesSlice = createSlice({
     name: 'leave',
@@ -56,8 +56,22 @@ const LeavesSlice = createSlice({
         })
 
         .addCase(approveLeave.fulfilled, (state, action) => {
-            state.leaveHistory.push(action.payload);
-            setLeaveHistory(state.leaveHistory);
+            state.leaveHistory.push({
+                ...action.payload,
+                status: 'Approved'
+            });
+            const request = state.requests.find((req) => req.id == action.payload.id)
+            if(request){
+                request.status = 'Approved'
+            }
+            const leave = state.balance.find((leave) => leave.leaveType == action.payload.leaveType)
+            if(leave){
+                leave.used = leave.used + action.payload.days
+                leave.remaining = leave.remaining - action.payload.days
+            }
+            setLeaveRequests(state.requests)
+            setLeaveHistory(state.leaveHistory)
+            setLeaveBalance(state.balance)
         })
 
         .addCase(rejectLeave.fulfilled, (state, action) => {

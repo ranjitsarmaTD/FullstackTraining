@@ -6,18 +6,18 @@ import dayjs from "dayjs";
 import { useDispatch } from "react-redux";
 import { addEmployees, updateEmployees } from "../../../store/thunks/employeeThunks";
 
-const roles = ['HR', 'Manager', 'IT'];
+const designation = ['HR', 'Manager', 'IT'];
 
 function NewEmployeeForm({ closeEmpForm, isEmpFormOpen, editRowData, edit}){
     const dispatch = useDispatch(addEmployees())
     const [ formControl, setFormControl ] = useState({
         name: editRowData?.name || "",
         email: editRowData?.email || "",
-        role: editRowData?.role || "",
         status: editRowData?.status || "",
         hiringDate: editRowData?.hiringDate
             ? dayjs(editRowData.hiringDate)
-            : dayjs()
+            : dayjs(),
+        designation: editRowData?.designation || ""
     })
 
     const handleFormControl = (e) => {
@@ -56,7 +56,8 @@ function NewEmployeeForm({ closeEmpForm, isEmpFormOpen, editRowData, edit}){
         dispatch(addEmployees({
             ...formControl,
             hiringDate: formControl?.hiringDate?.toISOString(),
-            id: Date.now()
+            id: Date.now(),
+            role: "Employee"
         }))
         closeEmpForm()
     }
@@ -65,7 +66,8 @@ function NewEmployeeForm({ closeEmpForm, isEmpFormOpen, editRowData, edit}){
         dispatch(updateEmployees({
             ...formControl,
             hiringDate: formControl?.hiringDate?.toISOString(),
-            id: editRowData?.id
+            id: editRowData?.id,
+            status: 'Active'
         }))
         closeEmpForm()
     }
@@ -121,20 +123,20 @@ function NewEmployeeForm({ closeEmpForm, isEmpFormOpen, editRowData, edit}){
                     }}
                 >
                 <TextField
-                    label="Role"
+                    label="Designation"
                     select
-                    name="role"
+                    name="designation"
                     variant="standard"
                     sx={{
                         width: '47%'
                     }}
-                    value={formControl.role}
+                    value={formControl.designation}
                     onChange={handleFormControl}
                 >
                     {
-                        roles.map((role, index) => {
+                        designation.map((desg, index) => {
                             return (
-                                <MenuItem value={role} key={`role-${index}`}>{role}</MenuItem>
+                                <MenuItem value={desg} key={`desg-${index}`}>{desg}</MenuItem>
                             )
                         })
                     }

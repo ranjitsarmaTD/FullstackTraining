@@ -5,24 +5,36 @@ import EventIcon from '@mui/icons-material/Event';
 import EditCalendarIcon from '@mui/icons-material/EditCalendar';
 import { NavLink } from "react-router-dom";
 import './sideBar.css'
+import { useSelector } from "react-redux";
+import EventRepeatIcon from '@mui/icons-material/EventRepeat';
 
 function SideBar(){
+    const { role } = useSelector(state => state.auth)
     const list = [
         {
             title: 'Dashboard',
-            link: '/'
+            link: '/admin/dashboard',
+            allowed: 'Admin'
+        },
+        {
+            title: 'Dashboard',
+            link: '/employee/dashboard',
+            allowed: 'Employee'
         },
         {
             title: 'Employee',
-            link: '/employees'
+            link: '/employees',
+            allowed: 'Admin'
         },
         {
             title: 'My Leaves',
-            link: '/my-leaves'
+            link: '/my-leaves',
+            allowed: 'Employee'
         },
         {
             title: 'Leave Requests',
-            link: '/leave-requests'
+            link: '/leave-requests',
+            allowed: 'Admin'
         }
     ];
     return (
@@ -30,6 +42,7 @@ function SideBar(){
             <List sx={{marginTop: '4rem'}}>
                 {
                     list?.map((list, index) => {
+                        if(list?.allowed == role){
                         return (
                             <ListItem key={`list-${index}`}>
                                 <ListItemButton 
@@ -79,11 +92,18 @@ function SideBar(){
                                                 }}
                                             />
                                         }
+                                        {
+                                            index == 4 && <EventRepeatIcon
+                                                sx={{
+                                                    color: '#1E3A8A'
+                                                }}
+                                            />
+                                        }
                                     </ListItemIcon>
                                     <ListItemText primary={list?.title}/>
                                 </ListItemButton>
                             </ListItem>
-                        )
+                        )}
                     })
                 }
             </List>

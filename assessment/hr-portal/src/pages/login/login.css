@@ -1,0 +1,47 @@
+.login-form{
+    box-shadow: 2px 2px 13px 4px #c7ced194;
+    width: 500px;
+    height: 550px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4rem;
+}
+
+.header-cont{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+
+.extra-cont{
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sub-title{
+    color: var(--secondary-text);
+    padding-top: 1rem;
+}
+
+.checkbox-content{
+    color: var(--secondary-text);
+}
+
+.sub-button{
+    background-color: var(--secondary) !important;
+    color: white !important;
+    width: 90%;
+    font-size: 1rem !important;
+    margin-top: 3px !important;
+}
+
+.sub-button:hover{
+    background-color: rgb(8, 8, 169) !important;
+}

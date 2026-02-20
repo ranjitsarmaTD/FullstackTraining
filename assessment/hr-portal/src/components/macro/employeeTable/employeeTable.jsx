@@ -18,7 +18,7 @@ function EmployeeTable({handleEdit, handleDelete}){
         { field: "id", headerName: "ID", width: 90 },
         { field: "name", headerName: "Name", width: 250 },
         { field: "email", headerName: "Email", width: 250 },
-        { field: "role", headerName: "Role", width: 150 },
+        { field: "designation", headerName: "Designation", width: 150 },
         { field: "status", headerName: "Status", width: 150 },
         { field: "hiringDate", headerName: "Hiring Date", width: 150},
         { field: "actions", type: 'actions', headerName: "Actions", width: 250, getActions: (params) => [

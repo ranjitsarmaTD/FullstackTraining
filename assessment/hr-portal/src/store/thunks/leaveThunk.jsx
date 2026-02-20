@@ -1,25 +1,37 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import leaveBalance from '../../mock/leaveBalance.json';
-import { loadLeaveHistory, loadLeaveRequests } from "../../utils/localStorage";
+import leaveBalancejson from '../../mock/leaveBalance.json';
+import leaveHistoryjson from '../../mock/leaveHistory.json';
+import leaveRequestsjson from '../../mock/leaveRequests.json';
+import { loadLeaveBalance, loadLeaveHistory, loadLeaveRequests } from "../../utils/localStorage";
 
 export const fetchLeaveRequests = createAsyncThunk('leave/fetchLeaveRequests', async () => {
     await new Promise(resolve => setTimeout(resolve, 800))
     const leaveRequests = loadLeaveRequests()
 
-    return leaveRequests;
+    if(leaveRequests){
+        return leaveRequests;
+    }
+    return leaveRequestsjson;
 })
 
 export const fetchLeaveHistory = createAsyncThunk('leave/fetchLeaveHistory', async () => {
     await new Promise(resolve => setTimeout(resolve, 800))
     const leaveHistory = loadLeaveHistory();
     
-    return leaveHistory;
+    if(leaveHistory){
+        return leaveHistory;
+    }
+    return leaveHistoryjson;
 })
 
 export const fetchBalance = createAsyncThunk('leave/fetchBalance', async () => {
     await new Promise(resolve => setTimeout(resolve, 800))
+    const leaveBalance = loadLeaveBalance();
 
-    return leaveBalance;
+    if(leaveBalance){
+        return leaveBalance;
+    }
+    return leaveBalancejson;
 })
 
 export const applyLeave = createAsyncThunk('leave/applyLeave', async (leave) => {
