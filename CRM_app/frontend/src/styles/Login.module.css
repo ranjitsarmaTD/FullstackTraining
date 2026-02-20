@@ -1,0 +1,92 @@
+.authPage {
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #e3f2fd, #f8f9fa);
+  gap:100px;
+}
+
+
+.loginCard {
+  
+  width: 360px;
+  padding: 24px 28px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.title {
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #333;
+}
+
+
+.roleSelection {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.roleSelection select {
+  height: 38px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  padding: 0 10px;
+}
+
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.loginForm label {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.loginForm input {
+  height: 40px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  padding: 0 10px;
+  font-size: 0.95rem;
+}
+
+.loginForm input:focus {
+  outline: none;
+  border-color: #1976d2;
+}
+
+
+.loginForm button {
+  margin-top: 10px;
+  height: 42px;
+  border-radius: 8px;
+  border: none;
+  background-color: #1976d2;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.loginForm button:hover {
+  background-color: #125ea8;
+}
+
+
+.portalLogo{
+    border:1px solid black;
+    height: 100%;
+    width: 50%;
+}

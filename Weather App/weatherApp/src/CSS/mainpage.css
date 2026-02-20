@@ -1,0 +1,349 @@
+header{
+  
+  top: 0;
+  z-index: 1000;
+  
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  width: 100%;
+  
+  box-shadow: 0px 0px 30px #cbd8d6 inset;
+  background-color: #006eff;
+  
+  backdrop-filter: blur(4px); 
+}
+
+header h1{
+  margin: 0.5em;
+  font-size: clamp(1.5rem, 5vw, 3rem);
+  color: #08101a;
+  text-shadow: 0px 0px 10px #8a2be2;
+}
+
+
+
+
+/* body */
+.mainpage-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+  min-height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+
+
+
+.display-panel {
+  margin: 2em;
+  padding: 2em;
+  box-shadow: 0 4px 30px rgba(129, 129, 130, 0.684);
+  border-radius: 36px;
+  background: #2887d05f;
+  backdrop-filter: blur(10px);
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap:10px;
+
+  min-width: 30%;
+  width: 50vw;
+}
+
+.display-panel label {
+  font-size: clamp(0.5rem, 1.8vw, 3rem);
+  margin-bottom: 0.5em;
+  color: #000000;
+  /* text-shadow: 0px 0px 5px #000000; */
+
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  font-style: italic;
+}
+
+
+.display-panel input:focus{
+    outline: none;
+    border: 1px solid rgb(0, 0, 255);
+    box-shadow: 0 0 20px rgb(3, 128, 223);
+}
+
+.search-button {
+  border-radius: 8px;
+  border: none;
+  padding: 5px 5px;
+  font-size: 1.1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.25s;
+}
+.search-button:hover{
+    background-color: #fcfcdd;
+}
+
+
+
+
+
+
+
+
+
+
+
+.display-data{
+    /* border:1px solid black; */
+    width:  100%; 
+    min-width: 30vw;
+    height: auto;
+    
+    padding: 20px;
+
+    
+    display: grid;
+    gap:10px;
+    grid-template-columns: auto auto;
+    /* align-items: center; */
+}
+
+
+.display-content{
+    display: flex;
+    flex-direction:column;
+    width: 100%;
+    min-width: 30%;
+    min-height: 30%;
+    gap:10px;
+    height: auto;
+    
+}
+
+
+
+
+
+.content-hourly{
+    
+    justify-self: center;
+    /* border:2px solid green; */
+    height: auto;
+    width:100%;
+    min-width: 30%;
+    /* overflow-y:hidden;
+    overflow-x: auto; */
+}
+
+.content-hourly-component{
+    width: 100%;
+    min-width: 30%;
+    height: 100%;
+    min-height: 300px;
+    gap:10px;
+
+    /* border: 1px solid red; */
+    border-radius: 20px;
+    padding: 10px;
+    background-color:#bcdbe8;
+    box-shadow: 0px 0px 300px #6b9ef6 inset;
+    
+    /* overflow-x: scroll; */
+
+    display: grid;
+    grid-template-columns: repeat(12,1fr);
+    min-height: 0;
+    /* flex-direction: row; */
+}
+
+.content-hourly-component h2 {
+    grid-column: 1/-1;
+    margin: 0;
+}
+
+
+.hourly-card{
+    
+    /* border:2px  solid blue; */
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.326);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.411);
+
+    height: 100%;
+
+
+
+
+}
+
+
+
+
+
+.content-daily{
+    justify-self: center;
+    width: 100%;
+    min-width: 30%;
+    height: auto;
+
+}
+.content-daily-component{
+    height: auto;
+    width: 100%;
+    min-width: 30%;
+    /* overflow-x: scroll; */
+    min-height: 300px;
+
+    /* border: 1px solid red; */
+    border-radius: 20px;
+    padding: 10px;
+    background-color:#bcdbe8;
+    box-shadow: 0px 0px 300px #6b9ef6 inset;
+
+    display: grid;
+    grid-template-columns: repeat(7,1fr);
+    gap:10px;
+    
+}
+
+
+@media (max-width:1600px){
+    .content-hourly-component{
+        
+        overflow-x: scroll;
+        /* display: flex; */
+        /* flex-direction: column; */
+    }
+    .content-daily-component{
+        overflow-x:scroll;
+    }
+}
+
+.content-daily-component h2{
+    margin:0;
+    grid-column: 1/-1;
+}
+
+
+.daily-card{
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.326);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.411);
+}
+
+
+
+
+/* CurentDisplay.tsx */
+.current-display-box{
+    border-radius: 20px;
+    /* aspect-ratio: 1/1; */
+    width: 100%;
+    height: 100%;
+    /* min-width:30%;
+    min-height: 40%; */
+
+
+    padding: 20px;
+    background-color:#b9dded;
+    box-shadow: 0px 0px 1000px #6b9ef6 inset;
+    
+    
+    
+}
+
+
+/* MetricCard */
+.metrics-container{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap:20px
+}
+
+.metrics-container div {
+  background: rgba(255, 255, 255, 0.326);
+  backdrop-filter: blur(16px);
+  width: 120px;
+  min-width: 20px;
+  /* height: 50%; */
+  aspect-ratio: 1/1;
+
+  align-self: center;
+  justify-self: center;
+  
+
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.636);
+}
+
+.weather-metric-card--Humidity .weather-card__label{   
+    color: rgb(94, 142, 255);
+    font-size: 1.5em;
+    font-weight: bold;
+    -webkit-text-stroke: 0.5px black;
+}
+.weather-metric-card--Humidity .weather-card__value{
+    color: rgb(94, 142, 255);
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+
+.weather-metric-card--Wind .weather-card__label{ 
+    color: rgb(54, 197, 190);
+    font-size: 1.5em;
+    font-style: italic;
+    font-weight: bold;
+    -webkit-text-stroke: 0.5px black;
+
+}
+
+.weather-metric-card--Wind .weather-card__value{
+    color: rgb(54, 197, 190);
+    font-size: 1.3em;
+    font-style: italic;
+    font-weight: bold;
+}
+
+
+
+.weather-metric-card--Sunrise .weather-card__label{ 
+    color: rgb(255, 227, 15);
+    font-size: 1.5em;
+    /* font-style: italic; */
+    font-weight: bold;
+    -webkit-text-stroke: 0.5px black;
+
+}
+
+.weather-metric-card--Sunrise .weather-card__value{
+    color: rgb(255, 227, 15);
+    font-size: 1.3em;
+    /* font-style: italic; */
+    font-weight: bold;
+}
+
+.weather-metric-card--Sunset .weather-card__label{ 
+    color: rgb(229, 177, 65);
+    font-size: 1.5em;
+    /* font-style: italic; */
+    font-weight: bold;
+    -webkit-text-stroke: 0.5px black;
+
+}
+
+.weather-metric-card--Sunset .weather-card__value{
+    color: rgb(229, 177, 65);
+    font-size: 1.3em;
+    /* font-style: italic; */
+    font-weight: bold;
+}

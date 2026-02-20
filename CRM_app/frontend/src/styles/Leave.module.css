@@ -1,0 +1,131 @@
+.leaveManagementContainer {
+    /* display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; */
+    width: 100%;
+    height: 100%;
+    background-color: rgb(240, 240, 240);
+    overflow: auto;
+}
+
+
+.leaveManagementHeader {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+
+.leaveBalance {
+    border:1px solid grey;
+
+    width: 80%;
+
+    justify-self: center;
+
+    padding: 20px;
+    margin-top: 20px;
+    font-size: 2rem;
+    font-weight: 400;
+    text-align: center;
+
+}
+.leaveBalance p:first-child {
+  font-weight: 600;
+}
+
+/* All except first */
+.leaveBalance p:not(:first-child) {
+  display: inline-block;
+  margin-right: 16px;
+  padding: 8px 16px;
+
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.leaveForm {
+    border:0.5px solid grey;
+    border-radius: 12px;
+    box-shadow: 0px 0px 30px 0px rgb(199, 198, 198) ;
+    background-color: rgb(255, 255, 255);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* grid-template-columns: repeat(4,1fr);
+    grid-template-rows: repeat(4, auto); */
+
+    gap: 30px;
+    margin-top: 20px;
+    width: 80%;
+
+    padding: 30px;
+
+    justify-self: center;
+;
+}
+.leaveForm label,input,select {
+    font-size: 1.1rem;
+    font-weight: 300;
+    width: 300px;
+}
+
+.leaveType {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+    gap: 8px;
+    width: 100%;
+}
+
+.dateRange {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+
+.leaveReason {
+    width: 80%;
+    font-size: 1rem;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    resize: vertical;
+}
+
+
+.submitButton {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: white;
+    background-color: rgb(103, 161, 249);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+
+.requestStatus {
+    border:0.5px solid grey;
+    border-radius: 12px;
+    box-shadow: 0px 0px 30px 0px rgb(199, 198, 198) ;
+    background-color: rgb(255, 255, 255);
+    width: 80%;
+    padding: 20px;
+    justify-self: center;
+    
+    margin-top: 20px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: rgb(103, 161, 249);
+
+    height: fit-content;
+    max-height: 200px;
+    overflow: auto;
+}
