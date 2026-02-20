@@ -1,6 +1,7 @@
 [
   {
-    "id": 101,
+    "id": 1,
+    "employeeId": 101,
     "name": "Rahul Sharma",
     "department": "Engineering",
     "leaveType": "Casual Leave",
@@ -12,7 +13,8 @@
     "appliedAt": "2026-02-15T10:30:00"
   },
   {
-    "id": 102,
+    "id": 2,
+    "employeeId": 102,
     "name": "Priya Das",
     "department": "HR",
     "leaveType": "Sick Leave",
@@ -24,7 +26,8 @@
     "appliedAt": "2026-02-16T09:00:00"
   },
   {
-    "id": 103,
+    "id": 3,
+    "employeeId": 103,
     "name": "Amit Verma",
     "department": "Finance",
     "leaveType": "Paid Leave",

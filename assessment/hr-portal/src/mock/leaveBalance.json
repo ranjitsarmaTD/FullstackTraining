@@ -1,20 +1,44 @@
 [
   {
+    "employeeId": 3,
     "leaveType": "Casual Leave",
     "total": 12,
     "used": 5,
     "remaining": 7
   },
   {
+    "employeeId": 3,
     "leaveType": "Sick Leave",
     "total": 10,
     "used": 2,
     "remaining": 8
   },
   {
+    "employeeId": 3,
     "leaveType": "Paid Leave",
     "total": 15,
     "used": 4,
     "remaining": 11
+  },
+  {
+    "employeeId": 2,
+    "leaveType": "Casual Leave",
+    "total": 12,
+    "used": 8,
+    "remaining": 4
+  },
+  {
+    "employeeId": 2,
+    "leaveType": "Sick Leave",
+    "total": 10,
+    "used": 4,
+    "remaining": 6
+  },
+  {
+    "employeeId": 2,
+    "leaveType": "Paid Leave",
+    "total": 15,
+    "used": 1,
+    "remaining": 14
   }
 ]

@@ -1,5 +1,6 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import LeaveRequestsTable from "../../components/macro/leaveRequests/leaveRequestsTable";
+import './leaveRequests.css'
 
 function LeaveRequests(){
     return (
@@ -7,8 +8,10 @@ function LeaveRequests(){
             sx={{display: 'flex', flexDirection: 'column'}}
         >
             <Box
-                sx={{marginY: '4rem', display: 'flex', flexDirection: 'column', paddingY: '4rem', paddingX: '1.5rem', marginX: '3rem'}}
+                sx={{marginY: '4rem', display: 'flex', flexDirection: 'column', paddingY: '4rem', paddingX: '0rem', marginX: '3rem'}}
             >
+                <h2>Leave Requests</h2>
+                <Typography className="sub-title">Manage all Leave Requests</Typography>
                 <LeaveRequestsTable/>
             </Box>
         </Box>

@@ -28,3 +28,14 @@ export const loadLeaveHistory = () => {
 export const setLeaveHistory = (leave) => {
     localStorage.setItem('leave-history', JSON.stringify(leave));
 }
+
+export const loadLeaveBalance = () => {
+    const res = localStorage.getItem('leave-balance')
+    const data = JSON.parse(res)
+    
+    return data;
+}
+
+export const setLeaveBalance = (balance) => {
+    localStorage.setItem('leave-balance', JSON.stringify(balance));
+}

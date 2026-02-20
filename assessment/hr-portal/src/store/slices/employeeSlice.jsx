@@ -20,6 +20,7 @@ const employeesSlice = createSlice({
             state.data = action.payload;
             state.loading = false;
             setEmployees(state.data);
+            
         })
         .addCase(fetchEmployees.rejected, (state) => {
             state.error = "Failed to fetch";

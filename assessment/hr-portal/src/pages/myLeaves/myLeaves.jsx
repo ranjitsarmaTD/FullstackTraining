@@ -17,10 +17,10 @@ function MyLeaves(){
 
     return (
         <Box
-            sx={{display: 'flex', flexDirection: 'column'}}
+            sx={{display: 'flex', flexDirection: 'column', width: '100%'}}
         >
             <Box
-                sx={{ display: 'flex', flexDirection: 'column', paddingY: '4rem', paddingX: '1.5rem', alignItems: 'center'}}
+                sx={{ display: 'flex', flexDirection: 'column', paddingTop: '4rem', paddingX: '3rem', alignItems: 'center'}}
             >
                 <Box
                     sx={{
@@ -45,6 +45,11 @@ function MyLeaves(){
                     >Leave booked this year : {}</Typography>
                     <Button
                         onClick={openLeaveForm}
+                        sx={{
+                            backgroundColor: 'green',
+                            color: 'white',
+                            width: '150px'
+                        }}
                     >Apply Leave</Button>
                 </Box>
                 <BalanceLeave/>
@@ -57,7 +62,13 @@ function MyLeaves(){
                 >
                     <h3>My Leaves</h3>
                 </Box>
-                <LeaveHistory/>
+                <Box
+                    sx={{
+                        width: '100%'
+                    }}
+                >
+                    <LeaveHistory/>
+                </Box>
             </Box>
             {
                 isLeaveFormOpen && <LeaveForm closeLeaveForm={closeLeaveForm} isLeaveFormOpen={isLeaveFormOpen}/>
