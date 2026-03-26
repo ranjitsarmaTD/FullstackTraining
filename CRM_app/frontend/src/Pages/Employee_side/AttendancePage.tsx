@@ -1,5 +1,15 @@
-import APstyles from "../../styles/AttendancePage.module.css";
 import { useState, useEffect } from "react";
+import {
+  Box,
+  Card,
+  CardContent,
+  Typography,
+  Grid,
+  Chip,
+  Divider,
+  Paper,
+  Container,
+} from "@mui/material";
 
 type DailyAttendance = {
   date: string;
@@ -22,20 +32,10 @@ type MonthlySummary = {
 const AttendancePage = () => {
   const [today, setToday] = useState<DailyAttendance | null>(null);
   const [weeklyRecords, setWeeklyRecords] = useState<DailyAttendance[]>([]);
-  const [monthlySummary, setMonthlySummary] = useState<MonthlySummary | null>(
-    null,
-  );
-
-  //Sign in/out duration to match quota and based on that attendance will be marked
-
-  //time record of when you signed in today, and signed out.
-
-  //record for a week.
-
-  //a section showing last few months. No of days in month-holidays(including Sat + sun)=worked days.
+  const [monthlySummary, setMonthlySummary] =
+    useState<MonthlySummary | null>(null);
 
   useEffect(() => {
-    // Simulating backend response
     setToday({
       date: "2026-02-13",
       signIn: "09:42",
@@ -79,51 +79,150 @@ const AttendancePage = () => {
     });
   }, []);
 
+  const getStatusColor = (status: string) => {
+    if (status === "PRESENT") return "success";
+    if (status === "HALF_DAY") return "warning";
+    return "error";
+  };
+
   return (
-    <div className={APstyles.attendanceContainer}>
-      <div className={APstyles.attendanceHeader}>
-        <h1>Your Attendance Records</h1>
-      </div>
+    <Container maxWidth="lg">
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          mt: 6,
+        }}
+      >
+        <Typography
+          variant="h3"
+          fontWeight="bold"
+          sx={{ mb: 5, textAlign: "center" }}
+        >
+          Your Attendance Records
+        </Typography>
 
+        <Grid container spacing={5} justifyContent="center">
+          {/* Today Attendance */}
+          {today && (
+            <Grid item xs={12} md={6}>
+              <Card
+                elevation={4}
+                sx={{
+                  minHeight: 320,
+                  padding: 2,
+                }}
+              >
+                <CardContent>
+                  <Typography variant="h5" gutterBottom>
+                    Today's Attendance
+                  </Typography>
 
-      <div className={APstyles.attendanceTable}>
-       
-        {today && (
-          <section className={APstyles.card}>
-            <h3>Today :</h3>
-            <div className={APstyles.row}>
-              <span>Sign In:</span>
-              <span>{today.signIn ?? "--"}</span>
-            </div>
-            <div className={APstyles.row}>
-              <span>Sign Out:</span>
-              <span>{today.signOut ?? "--"}</span>
-            </div>
-            <div className={APstyles.row}>
-              <span>Duration:</span>
-              <span>{today.duration}</span>
-            </div>
-            <div className={`${APstyles.status} ${APstyles[today.status]}`}>
-              {today.status}
-            </div>
-          </section>
-        )}
+                  <Divider sx={{ mb: 3 }} />
 
-        {monthlySummary && (
-          <section className={APstyles.card}>
-            <h3>{monthlySummary.month}</h3>
-            <div className={APstyles.grid}>
-              <p>Total Days: {monthlySummary.totalDays}</p>
-              <p>Weekends: {monthlySummary.weekends}</p>
-              <p>Holidays: {monthlySummary.holidays}</p>
-              <p>Working Days: {monthlySummary.workingDays}</p>
-              <p>Present: {monthlySummary.presentDays}</p>
-              <p>Absent: {monthlySummary.absentDays}</p>
-            </div>
-          </section>
-        )}
-      </div>
-    </div>
+                  <Grid container spacing={2}>
+                    <Grid item xs={6}>
+                      <Typography color="text.secondary" fontSize={18}>
+                        Sign In
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Typography fontSize={18}>
+                        {today.signIn ?? "--"}
+                      </Typography>
+                    </Grid>
+
+                    <Grid item xs={6}>
+                      <Typography color="text.secondary" fontSize={18}>
+                        Sign Out
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Typography fontSize={18}>
+                        {today.signOut ?? "--"}
+                      </Typography>
+                    </Grid>
+
+                    <Grid item xs={6}>
+                      <Typography color="text.secondary" fontSize={18}>
+                        Duration
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Typography fontSize={18}>{today.duration}</Typography>
+                    </Grid>
+                  </Grid>
+
+                  <Box mt={4}>
+                    <Chip
+                      label={today.status}
+                      color={getStatusColor(today.status)}
+                      sx={{ fontSize: 16, padding: "8px 12px" }}
+                    />
+                  </Box>
+                </CardContent>
+              </Card>
+            </Grid>
+          )}
+
+          {/* Monthly Summary */}
+          {monthlySummary && (
+            <Grid item xs={12} md={6}>
+              <Card
+                elevation={4}
+                sx={{
+                  minHeight: 320,
+                  padding: 2,
+                }}
+              >
+                <CardContent>
+                  <Typography variant="h5" gutterBottom>
+                    {monthlySummary.month}
+                  </Typography>
+
+                  <Divider sx={{ mb: 3 }} />
+
+                  <Grid container spacing={3}>
+                    {[
+                      { label: "Total Days", value: monthlySummary.totalDays },
+                      {
+                        label: "Working Days",
+                        value: monthlySummary.workingDays,
+                      },
+                      { label: "Present", value: monthlySummary.presentDays },
+                      { label: "Absent", value: monthlySummary.absentDays },
+                      { label: "Weekends", value: monthlySummary.weekends },
+                      { label: "Holidays", value: monthlySummary.holidays },
+                    ].map((item) => (
+                      <Grid item xs={6} key={item.label}>
+                        <Paper
+                          elevation={2}
+                          sx={{
+                            padding: 3,
+                            textAlign: "center",
+                          }}
+                        >
+                          <Typography
+                            variant="body1"
+                            color="text.secondary"
+                          >
+                            {item.label}
+                          </Typography>
+                          <Typography variant="h5" fontWeight="bold">
+                            {item.value}
+                          </Typography>
+                        </Paper>
+                      </Grid>
+                    ))}
+                  </Grid>
+                </CardContent>
+              </Card>
+            </Grid>
+          )}
+        </Grid>
+      </Box>
+    </Container>
   );
 };
 

@@ -1,9 +1,18 @@
 import { useState } from "react";
 import LoginStyle from "../styles/Login.module.css";
+// import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { api } from "../api/axios";
+import { useUser } from "../context/useUser";
+// 
 
 type Role = "employee" | "hr" | "admin";
 
+
 const Login = () => {
+  const navigate= useNavigate();
+  const {setUser} = useUser();
+
   const [role, setRole] = useState<Role>("employee");
 
   const [userId, setUserId] = useState("");
@@ -11,20 +20,44 @@ const Login = () => {
 
   //function to take data of id,pass and send to backend to be implemented later
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!userId || !password) {
       alert("Please enter ID and password");
       return;
     }
+    try{
+       console.log("In frontend")
+       const res= await api.post(
+         "http://localhost:4000/auth/login",
+       {
+         role,employeeId:userId,password
+       },
+       {
+         withCredentials:true
+       }
+    );
+    console.log("Login success:", res.data);
+    setUser(res.data.user);
+    navigate("/")
+    
+   }
+   catch(err)
+   {
+     console.log("Error sending credentials:",err)
+   }
+    
+    
 
     console.log({
       role,
       userId,
-      password,
+      password
     });
   };
+
+
   return (
     <div className={LoginStyle.authPage}>
       <div className={LoginStyle.loginCard}>

@@ -1,49 +1,72 @@
-import { useState } from "react";
-import lstyles from "../../../styles/Leave.module.css";
-import axios from "axios";
+import { useEffect, useState, type ChangeEvent } from "react";
+// import lstyles from "../../../styles/Leave.module.css";
+import toast from "react-hot-toast";
+import {
+  Box,
+  Typography,
+  Paper,
+  Stack,
+  TextField,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
+  Button,
+  Chip,
+  Grid,
+  Divider,
+  
+  type SelectChangeEvent,
+} from "@mui/material";
+import { useAppDispatch } from "../../../hooks/reduxHooks";
+import { useAppSelector } from "../../../hooks/reduxHooks";
+import {
+  applyForLeave,
+  fetchUserLeaves,
+  getLeaveCount,
+} from "../../../features/leaves/leaveService";
+import { setLeaves } from "../../../features/leaves/leaveSlice";
+import type {
+  FormDataType,
+  FormResponseType,
+  LeaveRequest,
+} from "../../../features/leaves/LeaveType";
+import { setLeaveBalance } from "../../../features/leaves/leaveBalanceSlice";
 
 //type declaration
-type FormDataType = {
-  leaveType: string;
-  startDate: string;
-  endDate: string;
-  reason: string;
-};
+// type FormDataType = {
+//   leaveType: string;
+//   startDate: string;
+//   endDate: string;
+//   reason: string;
+// };
 
-type FormResponseType = {
-  success: boolean;
-  status: "PENDING" | "APPROVED" | "REJECTED";
-  message: string;
-  reqId: string;
-};
+// type FormResponseType = {
+//   success: boolean;
+//   status: "PENDING" | "APPROVED" | "REJECTED";
+//   message: string;
+//   leaveId: string;
+// };
 
-type LeavesType = {
-  casualLeave?: number;
-  sickLeave?: number;
-  vacationLeave?: number;
-};
-
-type LeaveRequest = {
-  reqId: string;
-  leaveType: string;
-  startDate: string;
-  endDate: string;
-  status: "PENDING" | "APPROVED" | "REJECTED";
-  message: string;
-};
+// type LeaveBalance = {
+//   casualLeave?: number;
+//   sickLeave?: number;
+//   earnedLeave?: number;
 
 // main exportable function
 const LeaveManagement = () => {
-  //temp leaves obj
-  const leavesObj: LeavesType = {
-    casualLeave: 5,
-    sickLeave: 5,
-    vacationLeave: 5,
-  };
+  //for current leaves display
+  const getStatusColor = (status: string) => {
+  if (status === "approved") return "success";
+  if (status === "rejected") return "error";
+  return "warning";
+};
 
-  const [leaves, setLeaves] = useState<LeavesType>(leavesObj);
-
-  const [leaveRequests, setLeaveRequests] = useState<LeaveRequest[]>([]);
+  const dispatch = useAppDispatch();
+  const leaveRequests = useAppSelector((state) => state.leavesReducer.leaves);
+  const leaveBalance = useAppSelector(
+    (state) => state.leavesBalanceReducer.balance,
+  );
 
   const [formData, setFormData] = useState<FormDataType>({
     leaveType: "",
@@ -52,11 +75,27 @@ const LeaveManagement = () => {
     reason: "",
   });
 
+  useEffect(() => {
+    const loadLeaves = async () => {
+      const userLeaves: LeaveRequest[] = await fetchUserLeaves();
+      dispatch(setLeaves(userLeaves));
+    };
+
+    const loadBalance = async () => {
+      const data = await getLeaveCount();
+      // console.log("Dispatching leave balance: ", data);
+      dispatch(setLeaveBalance(data));
+    };
+
+    loadBalance();
+    loadLeaves();
+  }, [dispatch]);
+
   //general handler function for form elements
   const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >,
+    e:
+      | SelectChangeEvent<string>
+      | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
 
@@ -65,19 +104,7 @@ const LeaveManagement = () => {
       [name]: value,
     }));
   };
-
-  //api call to post formdata
-  const sendFormData = async (
-    requestPayload: FormDataType,
-  ): Promise<FormResponseType> => {
-    const api: string = "api/leave-apply/submit";
-    const response = await axios.post<FormResponseType>(api, requestPayload);
-
-    return response.data;
-  };
-
-  //submit handler on clicking submit
-
+//main handle submit func
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -87,124 +114,239 @@ const LeaveManagement = () => {
       !formData.endDate ||
       !formData.reason
     ) {
-      alert("Please fill all required fields");
+      toast.error("Please fill all required fields");
       return;
     }
 
     if (formData.endDate < formData.startDate) {
-      alert("End date cannot be before start date");
+      toast.error("End date cannot be before start date");
       return;
     }
-    //api to sent the data if approved here
 
     try {
-      const res: FormResponseType = await sendFormData(formData);
+      //redux dispatch -apply New leave
+      const newLeave: FormResponseType = await applyForLeave(formData);
+      const updatedLeaves: LeaveRequest[] = await fetchUserLeaves();
+      dispatch(setLeaves(updatedLeaves));
 
-      if (!res.success) //incase the response was unsuccessful
-      {
-        throw new Error(res.message);
-      }
-      console.log("Leave request submitted ", res.message, res.reqId);
-
-      setLeaveRequests((prev) => [
-        ...prev,
-        {
-          reqId: res.reqId!,
-          leaveType: formData.leaveType,
-          startDate: formData.startDate,
-          endDate: formData.endDate,
-          status: "PENDING",
-          message: res.message,
-        },
-      ]);
+      toast.success(newLeave.message);
     } catch (e) {
-      //this catch block if there was error in processing the sendFormData
       console.log("Leave was not submitted! Error:", e);
       alert("Leave was NOT able to be submitted. Try Again");
     }
-    // setLeaves([...leaves, ])
   };
 
   return (
-    <div className={lstyles.leaveManagementContainer}>
-      <div className={lstyles.leaveManagementHeader}>
-        <h2>Apply For a Leave</h2>
-      </div>
-      <div className={lstyles.leaveBalance}>
-        <p>Leave Balance</p>
-        <p>Casual Leaves: {leaves.casualLeave}</p>
-        <p>Sick Leaves: {leaves.sickLeave}</p>
-        <p>Vacation Leaves: {leaves.vacationLeave}</p>
-      </div>
-      <form className={lstyles.leaveForm} onSubmit={handleSubmit}>
-        <div className={lstyles.leaveType}>
-          <label htmlFor="leaveType">Leave Type:</label>
-          <select
-            id="leaveType"
-            name="leaveType"
-            value={formData.leaveType}
+    <Box
+      sx={{
+        width: "100%",
+        height: "100%",
+        backgroundColor: "rgb(240,240,240)",
+        overflow: "auto",
+        p: 2,
+      }}
+    >
+      
+      <Typography
+        variant="h5"
+        sx={{ textAlign: "center", mt: 2, fontWeight: 500 }}
+      >
+        Apply For a Leave
+      </Typography>
+
+      
+      <Paper
+        elevation={0}
+        sx={{
+          border: "1px solid grey",
+          width: "80%",
+          mx: "auto",
+          p: 3,
+          mt: 3,
+          textAlign: "center",
+        }}
+      >
+        <Typography sx={{ fontWeight: 600, mb: 2 }}>Leave Balance</Typography>
+
+        <Stack direction="row" justifyContent="center" spacing={3}>
+          <Typography>Casual Leaves: {leaveBalance?.casualLeaves}</Typography>
+          <Typography>Sick Leaves: {leaveBalance?.sickLeaves}</Typography>
+          <Typography>Earned Leaves: {leaveBalance?.earnedLeaves}</Typography>
+        </Stack>
+      </Paper>
+
+    
+      <Paper
+        component="form"
+        onSubmit={handleSubmit}
+        sx={{
+          border: "0.5px solid grey",
+          borderRadius: 3,
+          boxShadow: "0px 0px 30px rgb(199,198,198)",
+          backgroundColor: "white",
+          width: "80%",
+          mx: "auto",
+          mt: 3,
+          p: 4,
+        }}
+      >
+        <Stack spacing={4} alignItems="center">
+         
+          <FormControl sx={{ width: 300 }}>
+            <InputLabel>Leave Type</InputLabel>
+            <Select
+              name="leaveType"
+              value={formData.leaveType}
+              label="Leave Type"
+              onChange={handleChange}
+              required
+            >
+              <MenuItem value="sick">Sick Leave</MenuItem>
+              <MenuItem value="vacation">Vacation Leave</MenuItem>
+              <MenuItem value="earned">Earned Leave</MenuItem>
+            </Select>
+          </FormControl>
+
+         
+          <Stack direction="row" spacing={2}>
+            <TextField
+              type="date"
+              name="startDate"
+              label="Start Date"
+              InputLabelProps={{ shrink: true }}
+              value={formData.startDate}
+              onChange={handleChange}
+            />
+
+            <TextField
+              type="date"
+              name="endDate"
+              label="End Date"
+              InputLabelProps={{ shrink: true }}
+              value={formData.endDate}
+              onChange={handleChange}
+            />
+          </Stack>
+
+          <TextField
+            name="reason"
+            label="Reason for Leave"
+            multiline
+            rows={4}
+            value={formData.reason}
             onChange={handleChange}
             required
+            sx={{ width: "80%" }}
+          />
+
+ 
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{
+              backgroundColor: "rgb(103,161,249)",
+              fontWeight: 600,
+              fontSize: "1rem",
+              px: 3,
+              py: 1,
+            }}
           >
-            <option value="">--Select a Leave Type--</option>
-            <option value="sick">Sick Leave</option>
-            <option value="vacation">Vacation Leave</option>
-            <option value="personal">Personal Leave</option>
-          </select>
-        </div>
+            Submit Leave Request
+          </Button>
+        </Stack>
+      </Paper>
 
-        <div className={lstyles.dateRange}>
-          <label htmlFor="startDate">Start Date:</label>
-          <input
-            type="date"
-            id="startDate"
-            value={formData.startDate}
-            onChange={handleChange}
-            name="startDate"
-          />
-          <label htmlFor="endDate">End Date:</label>
-          <input
-            type="date"
-            id="endDate"
-            name="endDate"
-            value={formData.endDate}
-            onChange={handleChange}
-          />
-        </div>
+     
+      <Paper
+        sx={{
+          border: "0.5px solid grey",
+          borderRadius: 3,
+          boxShadow: "0px 0px 30px rgb(199,198,198)",
+          backgroundColor: "white",
+          width: "80%",
+          mx: "auto",
+          mt: 3,
+          p: 3,
+          maxHeight: 200,
+          overflow: "auto",
+        }}
+      ><>
+    {leaveRequests.length === 0 ? (
+      <Box sx={{ textAlign: "center", mt: 4 }}>
+        <Typography color="text.secondary">
+          No leave requests submitted yet.
+        </Typography>
+      </Box>
+    ) : (
+      <Stack spacing={1}>
+        {leaveRequests.map((req, index) => (
+          <Box key={req.leaveId} sx={{ px: 1, py: 2 }}>
+            
+            {/* ROW */}
+            <Grid container alignItems="center" spacing={2}>
+              
+              {/* Dates */}
+              <Grid item xs={3}>
+                <Typography fontWeight={500}>
+                  {new Date(req.startDate).toLocaleDateString()} →{" "}
+                  {new Date(req.endDate).toLocaleDateString()}
+                </Typography>
+              </Grid>
 
-        <label htmlFor="reason">Reason for Leave:</label>
-        <textarea
-          id="reason"
-          className={lstyles.leaveReason}
-          name="reason"
-          rows={4}
-          cols={50}
-          value={formData.reason}
-          onChange={handleChange}
-          required
-        />
+              {/* Reason */}
+              <Grid item xs={3}>
+                <Typography color="text.secondary">
+                  {req.reason}
+                </Typography>
+              </Grid>
 
-        <button type="submit" className={lstyles.submitButton}>
-          Submit Leave Request
-        </button>
-      </form>
-      <div className={lstyles.requestStatus}>
-        {leaveRequests.map((req) => (
-          <div key={req.reqId}>
-            <p>Request ID: {req.reqId}</p>
-            <p>Status: {req.status}</p>
+              {/* Status */}
+              <Grid item xs={2}>
+                <Chip
+                  label={req.status.toUpperCase()}
+                  color={getStatusColor(req.status)}
+                  size="small"
+                />
+              </Grid>
 
-            {req.status === "PENDING" && (
-              <p>Your request is waiting for approval</p>
+              {/* Message */}
+              <Grid item xs={2}>
+                {req.status === "pending" && (
+                  <Typography color="warning.main">
+                    Waiting
+                  </Typography>
+                )}
+                {req.status === "approved" && (
+                  <Typography color="success.main">
+                    Approved
+                  </Typography>
+                )}
+                {req.status === "rejected" && (
+                  <Typography color="error.main">
+                    Rejected
+                  </Typography>
+                )}
+              </Grid>
+
+              {/* Approved By */}
+              <Grid item xs={2}>
+                <Typography variant="body2" color="text.secondary">
+                  {req.approvedBy ?? "Not approved"}
+                </Typography>
+              </Grid>
+            </Grid>
+
+            {/* Row Divider (optional, not between columns) */}
+            {index !== leaveRequests.length - 1 && (
+              <Divider sx={{ mt: 2 }} />
             )}
-
-            {req.status === "APPROVED" && <p>Approved</p>}
-
-            {req.status === "REJECTED" && <p>Rejected</p>}
-          </div>
+          </Box>
         ))}
-      </div>
-    </div>
+      </Stack>
+    )}
+  </>
+      </Paper>
+    </Box>
   );
 };
 
