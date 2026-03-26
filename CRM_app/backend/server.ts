@@ -1,5 +1,9 @@
 import app from "./app";
 import { AppDataSource } from "./dataSource";
+import dotenv from "dotenv";
+
+dotenv.config();
+//Initializes the data base connection AND then starts to listen to the server here.
 
 AppDataSource.initialize()
   .then(() => {
